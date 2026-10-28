@@ -1,0 +1,54 @@
++-----------------------------------+
+|               CPU                 |
+|          Specifications           |
++-----------------------------------+
+
+
++----------- Registers -------------+
+
+A (Accumulator)
+
+F (Flags: Zero, Carry, Negative, Half-Carry)
+
+B, C, D, E, H, L (general purpose register pairs)
+
+W, Z (temp address registers)
+
+SP
+
+PC
+
+
++----------- Instructions ----------+
+
+NOP
+
+LD r8, r8
+LD r8, n8
+
+r8-Arithmetic (ADD, ADC, SUB, SBC, AND, OR, XOR, CMP, INC, DEC)
+
+JMP a16 (with flags Z, C)
+CALL a16 (with flags Z, C)
+RET
+
+
++------------- Modules -------------+
+
+Single Register (Instruction, Accumulator)
+Control
+Regfile
+ALU
+Memory
+
+
+
+
+
+1   : Put PC on Address Bus
+1,5 : 
+2   : Read from Memory
+2,5 : Instruction on Data Bus
+3   : Load Instr into IR
+3,5 : Control signals generated (Operand B is put onto Data-Bus?) (Doesnt the result have to be here to be able to be written back on the next cycle?)
+4   : WB to Regfile
