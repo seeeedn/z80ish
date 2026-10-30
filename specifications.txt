@@ -41,14 +41,3 @@ Regfile
 ALU
 Memory
 
-
-
-
-
-1   : Put PC on Address Bus
-1,5 : 
-2   : Read from Memory
-2,5 : Instruction on Data Bus
-3   : Load Instr into IR
-3,5 : Control signals generated (Operand B is put onto Data-Bus?) (Doesnt the result have to be here to be able to be written back on the next cycle?)
-4   : WB to Regfile

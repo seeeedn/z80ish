@@ -24,26 +24,17 @@ module microcode_rom
     rom[FETCH].seq        = SEQ_NEXT;
 
     // Put Mem on DBUS, prep for IR load.
-    rom[1].load_ir      = 1'b1;
-    rom[1].pc_inc       = 1'b1;
-    rom[1].data_bus_sel = 2'b10;
-    rom[1].seq          = SEQ_NEXT;
+    rom[FETCH_2].load_ir      = 1'b1;
+    rom[FETCH_2].pc_inc       = 1'b1;
+    rom[FETCH_2].data_bus_sel = 2'b10;
+    rom[FETCH_2].seq          = SEQ_NEXT;
 
-    // rom[2]: Decode here
     rom[DECODE].seq = SEQ_DISPATCH;
 
-    // TODO: rest of the ROM
-    rom[LOAD_REG].reg_we = 1'b1;
-    rom[LOAD_REG].seq    = SEQ_END;
+    rom[LOAD_RR].rf_we        = 1'b1;
+    rom[LOAD_RR].seq          = SEQ_JUMP;
+    rom[LOAD_RR].target       = FETCH;
 
-    rom[MEM_RD].mem_rd       = 1'b1;
-    rom[MEM_RD].addr_bus_sel = 2'b10;
-    rom[MEM_RD].seq          = SEQ_MEM_RD;
-
-    rom[MEM_WR].mem_wr       = 1'b1;
-    rom[MEM_WR].addr_bus_sel = 2'b10;
-    rom[MEM_WR].seq          = SEQ_MEM_WR;
-    //
     rom[HALT].seq = SEQ_HALT;
   end
 

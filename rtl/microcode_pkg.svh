@@ -12,9 +12,9 @@ package microcode_pkg;
       logic [4:0] alu_op;
       logic       load_a_reg;
 
-      logic [2:0] reg_rd_sel;
-      logic [2:0] reg_wr_sel;
-      logic       reg_we;
+      logic [2:0] rf_rd_sel;
+      logic [2:0] rf_wr_sel;
+      logic       rf_we;
 
       logic       load_pc;
       logic       load_sp;
@@ -30,13 +30,17 @@ package microcode_pkg;
       logic [1:0] data_bus_sel;
 
       seq_t       seq;
+      logic [9:0] target;
   } microinstr_t;
 
   localparam logic [9:0] FETCH    = 10'd0;
+  localparam logic [9:0] FETCH_2  = 10'd1;
   localparam logic [9:0] DECODE   = 10'd2;
-  localparam logic [9:0] LOAD_REG = 10'd16;
-  localparam logic [9:0] MEM_RD   = 10'd32;
-  localparam logic [9:0] MEM_WR   = 10'd48;
+
+  localparam logic [9:0] LOAD_RR  = 10'd8;
+  localparam logic [9:0] LOAD_RM  = 10'd12;
+  localparam logic [9:0] LOAD_MR  = 10'd16;
+
   localparam logic [9:0] HALT     = 10'd1023;
 
 endpackage

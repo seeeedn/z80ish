@@ -15,9 +15,9 @@ module control
     output logic       load_a_reg_o,
 
     // Register file
-    output logic [2:0] reg_rd_sel_o,
-    output logic [2:0] reg_wr_sel_o,
-    output logic       reg_we_o,
+    output logic [2:0] rf_rd_sel_o,
+    output logic [2:0] rf_wr_sel_o,
+    output logic       rf_we_o,
     output logic       load_pc_o,
     output logic       load_sp_o,
 
@@ -80,7 +80,39 @@ module control
   end
 
   always_comb begin
-    // assign Outputs
+    load_ir_o       = u_instr.load_ir;
+
+    alu_op_o        = u_instr.alu_op;
+    load_a_reg_o    = 1'b0;
+
+    rf_rd_sel_o     = src_reg;
+    rf_wr_sel_o     = dst_reg;
+    rf_we_o         = u_instr.rf_we;
+    load_pc_o       = u_instr.load_pc;
+    load_sp_o       = u_instr.load_sp;
+
+    addr_inc_o      = u_instr.addr_inc;
+    addr_dec_o      = u_instr.addr_dec;
+    pc_inc_o        = u_instr.pc_inc;
+
+    mem_rd_o        = u_instr.mem_rd;
+    mem_wr_o        = u_instr.mem_wr;
+
+    addr_bus_sel_o  = u_instr.addr_bus_sel;
+    data_bus_sel_o  = u_instr.data_bus_sel;
+
+    // Microinstruction decoding goes here
+    if (micro_pc == LOAD_RR) begin
+        if (dst_reg == 3'b111) begin
+          load_a_reg_o = 1'b1;
+          rf_we_o      = 1'b0;
+        end
+        if (src_reg == 3'b111) begin
+          alu_op_o       = 5'b11001; // Pass A through ALU
+          data_bus_sel_o = 2'b01;
+        end
+    end
+
   end
 
 endmodule

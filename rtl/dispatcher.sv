@@ -20,11 +20,11 @@ module dispatcher
             opcode_i[2:0] == 3'b110)
           entry_addr_o = HALT;  // The real HALT-Instruction
         else if (opcode_i[5:3] == 3'b110)
-          entry_addr_o = MEM_WR;
+          entry_addr_o = LOAD_MR;
         else if (opcode_i[2:0] == 3'b110)
-          entry_addr_o = MEM_RD;
+          entry_addr_o = LOAD_RM;
         else
-          entry_addr_o = REG_LOAD;
+          entry_addr_o = LOAD_RR;
       end
 
       2'b10: begin

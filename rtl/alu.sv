@@ -36,11 +36,12 @@ module alu (
   localparam OP_SCF = 5'b10110;
   localparam OP_CCF = 5'b10111;
   //           unused 5'b11000
-  //           unused 5'b11001
-  //           unused 5'b11010
+  */
+  localparam PASS_A = 5'b11001;
+  localparam PASS_B = 5'b11010;
+  /*
   //           unused 5'b11011
   //           unused 5'b11100
-  /*
   localparam OP_BIT = 5'b11101;
   localparam OP_RES = 5'b11110;
   localparam OP_SET = 5'b11111;
@@ -133,6 +134,16 @@ module alu (
         flags_o[F_C] = ~flags_i[F_C];
       end
 */
+      PASS_A: begin
+        res_o = op_a_i;
+        flags_o = flags_i;
+      end
+
+      PASS_B: begin
+        res_o = op_b_i;
+        flags_o = flags_i;
+      end
+
       default: begin
         res_o = op_b_i;
         flags_o = flags_i;

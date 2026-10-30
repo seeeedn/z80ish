@@ -19,7 +19,7 @@ module cpu (
   ) ir_inst (
     .clk_i(clk_i),
     .rst_ni(rst_ni),
-    .we_i(),
+    .we_i(load_ir),
     .data_i(data_bus),
     .data_o(ir_value)
   );
@@ -30,7 +30,7 @@ module cpu (
   ) acc_inst (
     .clk_i(clk_i),
     .rst_ni(rst_ni),
-    .we_i(),
+    .we_i(load_a_reg),
     .data_i(data_bus),
     .data_o(acc_value)
   );
@@ -42,31 +42,36 @@ module cpu (
   ) flag_reg_inst (
     .clk_i(clk_i),
     .rst_ni(rst_ni),
-    .we_i(),
+    .we_i(1'b0),                // TODO: update_flags
     .data_i(alu_flags),
     .data_o(flags_value)
   );
-  assign flags_reg_full = {flag_value, 4'b0000};
+  assign flags_reg_full = {flags_value, 4'b0000};
 
   logic [15:0] pc_value;
+  logic [15:0] next_pc_value;       // TODO: better interface
+  assign next_pc_value = (load_pc == 1'b1) ? rf_wz_value :
+                         pc_idu_value;
+
   single_reg #(
     .WIDTH(16)
   ) pc_inst (
     .clk_i(clk_i),
     .rst_ni(rst_ni),
-    .we_i(),
-    .data_i(),
+    .we_i(load_pc | pc_inc),
+    .data_i(next_pc_value),
     .data_o(pc_value)
   );
 
+  // TODO: connect SP
   logic [15:0] sp_value;
   single_reg #(
     .WIDTH(16)
   ) sp_inst (
     .clk_i(clk_i),
     .rst_ni(rst_ni),
-    .we_i(),
-    .data_i(),
+    .we_i(1'b0),
+    .data_i(16'd0),
     .data_o(sp_value)
   );
 
@@ -76,9 +81,9 @@ module cpu (
   regfile regfile_inst (
     .clk_i(clk_i),
     .rst_ni(rst_ni),
-    .we_i(),
-    .wr_sel_i(),
-    .rd_sel_i(),
+    .we_i(rf_we),
+    .wr_sel_i(rf_wr_sel),
+    .rd_sel_i(rf_rd_sel),
     .data_i(data_bus),
     .data_o(rf_rd_value),
     .hl_o(rf_hl_value),
@@ -91,6 +96,7 @@ module cpu (
   // 10 -> Memory
   // 11 -> Unused (maybe peripherals, etc.)
   logic [1:0] dbus_sel;
+  assign dbus_sel = data_bus_sel;
   assign data_bus = (dbus_sel == 2'b00) ? rf_rd_value :
                     (dbus_sel == 2'b01) ? alu_res :
                     (dbus_sel == 2'b10) ? mem_data_i :
@@ -103,6 +109,7 @@ module cpu (
   // 10 -> HL
   // 11 -> WZ
   logic [1:0] abus_sel;
+  assign abus_sel = addr_bus_sel;
   assign addr_bus = (abus_sel == 2'b00) ? pc_value :
                     (abus_sel == 2'b01) ? sp_value :
                     (abus_sel == 2'b10) ? rf_hl_value :
@@ -115,7 +122,7 @@ module cpu (
   ) alu_temp_inst (
     .clk_i(clk_i),
     .rst_ni(rst_ni),
-    .we_i(),
+    .we_i(1'b0),            // TODO: load_temp
     .data_i(data_bus),
     .data_o(alu_op_b)
   );
@@ -125,7 +132,7 @@ module cpu (
   alu alu_inst (
     .op_a_i(acc_value),
     .op_b_i(alu_op_b),
-    .alu_op_i(),
+    .alu_op_i(alu_op_sel),
     .flags_i(flags_value),
     .flags_o(alu_flags),
     .res_o(alu_res)
@@ -134,7 +141,7 @@ module cpu (
   logic [15:0] pc_idu_value;
   idu idu_pc_inst (
     .value_i(pc_value),
-    .inc_i(),
+    .inc_i(pc_inc),
     .dec_i(1'b0),
     .value_o(pc_idu_value)
   );
@@ -142,9 +149,66 @@ module cpu (
   logic [15:0] sp_idu_value;
   idu idu_sp_inst (
     .value_i(sp_value),
-    .inc_i(),
-    .dec_i(),
+    .inc_i(addr_inc),
+    .dec_i(addr_dec),
     .value_o(sp_idu_value)
   );
+
+  // Control signals
+  logic       load_ir;
+  logic [4:0] alu_op_sel;
+  logic       load_a_reg;
+  logic [2:0] rf_rd_sel;
+  logic [2:0] rf_wr_sel;
+  logic       rf_we;
+  logic       load_pc;
+  logic       load_sp;
+  logic       addr_inc;
+  logic       addr_dec;
+  logic       pc_inc;
+  logic       mem_rd;
+  logic       mem_wr;
+  logic [1:0] addr_bus_sel;
+  logic [1:0] data_bus_sel;
+
+  control ctrl_inst (
+    .clk_i(clk_i),
+    .rst_ni(rst_ni),
+
+    // Instruction
+    .opcode_i(ir_value),
+
+    // Instruction register
+    .load_ir_o(load_ir),
+
+    // ALU
+    .alu_op_o(alu_op_sel),
+    .load_a_reg_o(load_a_reg),
+
+    // Register file
+    .rf_rd_sel_o(rf_rd_sel),
+    .rf_wr_sel_o(rf_wr_sel),
+    .rf_we_o(rf_we),
+    .load_pc_o(load_pc),
+    .load_sp_o(load_sp),
+
+    // IDU
+    .addr_inc_o(addr_inc),
+    .addr_dec_o(addr_dec),
+    .pc_inc_o(pc_inc),
+
+    // Memory
+    .mem_rd_o(mem_rd),
+    .mem_wr_o(mem_wr),
+
+    // Buses
+    .addr_bus_sel_o(addr_bus_sel),
+    .data_bus_sel_o(data_bus_sel)
+  );
+
+  assign mem_addr_o = addr_bus;
+  assign mem_data_o = data_bus;
+  assign mem_rd_o   = mem_rd;
+  assign mem_wr_o   = mem_wr;
 
 endmodule
