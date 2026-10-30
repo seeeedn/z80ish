@@ -1,5 +1,6 @@
-import microcode_pkg::*;
-module control (
+module control
+    import microcode_pkg::*;
+(
     input  logic       clk_i,
     input  logic       rst_ni,
 

@@ -1,5 +1,6 @@
-import microcode_pkg::*;
-module dispatcher (
+module dispatcher
+    import microcode_pkg::*;
+(
     input logic [7:0] opcode_i,
 
     output logic [9:0] entry_addr_o

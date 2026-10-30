@@ -1,5 +1,6 @@
-import microcode_pkg::*;
-module microcode_rom (
+module microcode_rom
+    import microcode_pkg::*;
+(
     input logic [9:0] micro_pc_i,
 
     output microinstr_t uinstr_o

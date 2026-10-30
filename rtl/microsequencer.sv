@@ -1,5 +1,6 @@
-import microcode_pkg::*;
-module microsequencer (
+module microsequencer 
+    import microcode_pkg::*;
+(
     input logic [9:0] upc_i,
     input seq_t       seq_i,
     input logic [9:0] dispatch_addr_i,
