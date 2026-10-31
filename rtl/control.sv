@@ -113,6 +113,20 @@ module control
         end
     end
 
+    if (micro_pc == (LOAD_RM + 1)) begin
+        if (dst_reg == 3'b111) begin
+          load_a_reg_o = 1'b1;
+          rf_we_o      = 1'b0;
+        end
+    end
+
+    if (micro_pc == LOAD_MR) begin
+        if (src_reg == 3'b111) begin
+          alu_op_o       = 5'b11001; // Pass A through ALU
+          data_bus_sel_o = 2'b01;
+        end
+    end
+
   end
 
 endmodule

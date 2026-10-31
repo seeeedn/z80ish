@@ -34,9 +34,9 @@ class alignas(VL_CACHE_LINE_BYTES) Vtb___024root final {
     CData/*3:0*/ tb__DOT__dut__DOT__cpu_inst__DOT__flag_reg_inst__DOT__reg_value;
     CData/*7:0*/ tb__DOT__dut__DOT__mem_inst__DOT__rd_data;
     CData/*0:0*/ __VdfgRegularize_h6e95ff9d_0_0;
-    CData/*0:0*/ __VdfgRegularize_h6e95ff9d_0_6;
-    CData/*1:0*/ __VdfgRegularize_h6e95ff9d_0_8;
-    CData/*0:0*/ __VdfgRegularize_h6e95ff9d_0_9;
+    CData/*0:0*/ __VdfgRegularize_h6e95ff9d_0_8;
+    CData/*1:0*/ __VdfgRegularize_h6e95ff9d_0_11;
+    CData/*0:0*/ __VdfgRegularize_h6e95ff9d_0_12;
     CData/*0:0*/ __Vtrigprevexpr___TOP__tb__DOT__clk_i__0;
     CData/*0:0*/ __Vtrigprevexpr___TOP__tb__DOT__rst_ni__0;
     SData/*9:0*/ tb__DOT__dut__DOT__cpu_inst__DOT__ctrl_inst__DOT__micro_pc;
@@ -62,6 +62,7 @@ class alignas(VL_CACHE_LINE_BYTES) Vtb___024root final {
     std::string __Vtask_tb__DOT__check_reg__5__reg_name;
     std::string __Vtask_tb__DOT__check_reg__7__reg_name;
     std::string __Vtask_tb__DOT__check_reg__10__reg_name;
+    std::string __Vtask_tb__DOT__check_reg__14__reg_name;
     VlDelayScheduler __VdlySched;
     VlTriggerScheduler __VtrigSched_h62411ea8__0;
 

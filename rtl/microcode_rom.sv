@@ -35,6 +35,20 @@ module microcode_rom
     rom[LOAD_RR].seq          = SEQ_JUMP;
     rom[LOAD_RR].target       = FETCH;
 
+    rom[LOAD_RM].mem_rd       = 1'b1;
+    rom[LOAD_RM].addr_bus_sel = 2'b10;
+    rom[LOAD_RM].seq          = SEQ_NEXT;
+
+    rom[LOAD_RM + 1].rf_we        = 1'b1;
+    rom[LOAD_RM + 1].data_bus_sel = 2'b10;
+    rom[LOAD_RM + 1].seq          = SEQ_JUMP;
+    rom[LOAD_RM + 1].target       = FETCH;
+
+    rom[LOAD_MR].mem_wr       = 1'b1;
+    rom[LOAD_MR].addr_bus_sel = 2'b10;
+    rom[LOAD_MR].seq          = SEQ_JUMP;
+    rom[LOAD_MR].target       = FETCH;
+
     rom[HALT].seq = SEQ_HALT;
   end
 

@@ -412,8 +412,8 @@ VL_ATTR_COLD void Vtb___024root__trace_full_0_sub_0(Vtb___024root* vlSelf, Veril
                                                              >> 0x0000000bU)))
                                                ? ((IData)(vlSelfRef.tb__DOT__dut__DOT__cpu_inst__DOT__ctrl_inst__DOT__u_rom__DOT__rom
                                                           [vlSelfRef.tb__DOT__dut__DOT__cpu_inst__DOT__ctrl_inst__DOT__micro_pc]) 
-                                                  | (- (IData)((IData)(vlSelfRef.__VdfgRegularize_h6e95ff9d_0_9))))
-                                               : ((IData)(vlSelfRef.__VdfgRegularize_h6e95ff9d_0_9)
+                                                  | (- (IData)((IData)(vlSelfRef.__VdfgRegularize_h6e95ff9d_0_12))))
+                                               : ((IData)(vlSelfRef.__VdfgRegularize_h6e95ff9d_0_12)
                                                    ? Vtb__ConstPool__TABLE_h5fe72e41_0
                                                   [vlSelfRef.tb__DOT__dut__DOT__cpu_inst__DOT__ir_inst__DOT__reg_value]
                                                    : 
@@ -475,25 +475,26 @@ VL_ATTR_COLD void Vtb___024root__trace_full_0_sub_0(Vtb___024root* vlSelf, Veril
     bufp->fullCData(oldp+39,(vlSelfRef.tb__DOT__dut__DOT__cpu_inst__DOT__alu_res),8);
     bufp->fullSData(oldp+40,((0x0000ffffU & ((IData)(vlSelfRef.tb__DOT__dut__DOT__cpu_inst__DOT__pc_inst__DOT__reg_value) 
                                              + (IData)(vlSelfRef.__VdfgRegularize_h6e95ff9d_0_0)))),16);
-    bufp->fullSData(oldp+41,((0x0000ffffU & ((1U == (IData)(vlSelfRef.__VdfgRegularize_h6e95ff9d_0_8))
+    bufp->fullSData(oldp+41,((0x0000ffffU & ((1U == (IData)(vlSelfRef.__VdfgRegularize_h6e95ff9d_0_11))
                                               ? ((IData)(vlSelfRef.tb__DOT__dut__DOT__cpu_inst__DOT__sp_inst__DOT__reg_value) 
                                                  - (IData)(1U))
                                               : ((IData)(vlSelfRef.tb__DOT__dut__DOT__cpu_inst__DOT__sp_inst__DOT__reg_value) 
                                                  + 
                                                  (2U 
-                                                  == (IData)(vlSelfRef.__VdfgRegularize_h6e95ff9d_0_8)))))),16);
+                                                  == (IData)(vlSelfRef.__VdfgRegularize_h6e95ff9d_0_11)))))),16);
     bufp->fullCData(oldp+42,(vlSelfRef.tb__DOT__dut__DOT__cpu_inst__DOT__alu_inst__DOT__alu_op_i),5);
-    bufp->fullBit(oldp+43,((IData)(((8U == (IData)(vlSelfRef.tb__DOT__dut__DOT__cpu_inst__DOT__ctrl_inst__DOT__micro_pc)) 
-                                    & (0x38U == (0x38U 
-                                                 & (IData)(vlSelfRef.tb__DOT__dut__DOT__cpu_inst__DOT__ir_inst__DOT__reg_value)))))));
+    bufp->fullBit(oldp+43,((IData)(((0x38U == (0x38U 
+                                               & (IData)(vlSelfRef.tb__DOT__dut__DOT__cpu_inst__DOT__ir_inst__DOT__reg_value))) 
+                                    & ((8U == (IData)(vlSelfRef.tb__DOT__dut__DOT__cpu_inst__DOT__ctrl_inst__DOT__micro_pc)) 
+                                       | (0x000dU == (IData)(vlSelfRef.tb__DOT__dut__DOT__cpu_inst__DOT__ctrl_inst__DOT__micro_pc)))))));
     bufp->fullCData(oldp+44,((7U & (IData)(vlSelfRef.tb__DOT__dut__DOT__cpu_inst__DOT__ir_inst__DOT__reg_value))),3);
     bufp->fullCData(oldp+45,((7U & ((IData)(vlSelfRef.tb__DOT__dut__DOT__cpu_inst__DOT__ir_inst__DOT__reg_value) 
                                     >> 3U))),3);
-    bufp->fullBit(oldp+46,(((8U == (IData)(vlSelfRef.tb__DOT__dut__DOT__cpu_inst__DOT__ctrl_inst__DOT__micro_pc))
+    bufp->fullBit(oldp+46,(((0x000dU == (IData)(vlSelfRef.tb__DOT__dut__DOT__cpu_inst__DOT__ctrl_inst__DOT__micro_pc))
                              ? ((7U != (7U & ((IData)(vlSelfRef.tb__DOT__dut__DOT__cpu_inst__DOT__ir_inst__DOT__reg_value) 
                                               >> 3U))) 
-                                & (IData)(vlSelfRef.__VdfgRegularize_h6e95ff9d_0_6))
-                             : (IData)(vlSelfRef.__VdfgRegularize_h6e95ff9d_0_6))));
+                                & (IData)(vlSelfRef.__VdfgRegularize_h6e95ff9d_0_8))
+                             : (IData)(vlSelfRef.__VdfgRegularize_h6e95ff9d_0_8))));
     bufp->fullBit(oldp+47,(vlSelfRef.tb__DOT__dut__DOT__cpu_inst__DOT__ctrl_inst__DOT__load_pc_o));
     bufp->fullBit(oldp+48,(vlSelfRef.__VdfgRegularize_h6e95ff9d_0_0));
     bufp->fullBit(oldp+49,(vlSelfRef.tb__DOT__dut__DOT__cpu_inst__DOT__alu_inst__DOT__test_zero));
